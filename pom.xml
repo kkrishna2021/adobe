@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.3.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>helloworld</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>helloworld</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+<profiles>        
+ <!-- Set targetDockerRegistry property to push project images to the Registry.
+             The profile must be in sync with the main <properties> section above -
+             Docker repository of the project must be redefined here. -->
+        <profile>
+            <id>hasTargetDockerRegistry</id>
+            <activation>
+                <property>
+                    <name>baseDockerRepository</name>
+                </property>
+            </activation>
+
+            <properties>
+				<!-- overridden during deploy step
+             If you change repository name do not forget update it in profile properties  -->
+
+        <!-- Docker repositories for this project -->
+        
+        <baseDockerRepository>images</baseDockerRepository>
+        <baseMavenImage>${baseDockerRepository}/maven:3.8-jdk-11</baseMavenImage>
+		<baseJavaImage>${baseDockerRepository}/openjdk:11</baseJavaImage>
+            </properties>
+        </profile>	
+</profiles>
+</project>
